@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package Cache;
+
+message Response
+{
+    string LinkedinID = 1;
+    string BingBidder = 2;
+}

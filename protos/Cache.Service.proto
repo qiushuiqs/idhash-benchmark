@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "Cache.Request.proto";
+import "Cache.Response.proto";
+
+package Cache;
+
+service CacheService
+{
+    rpc ProcessRequest(Request) returns (Response) {}
+}
