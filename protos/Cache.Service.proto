@@ -3,7 +3,8 @@ syntax = "proto3";
 import "Cache.Request.proto";
 import "Cache.Response.proto";
 
-package Cache;
+
+package cache;
 
 service CacheService
 {
