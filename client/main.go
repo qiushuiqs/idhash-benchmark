@@ -1,29 +1,33 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"time"
 
-	"github.com/benchmark/cache"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
+	"github.com/qiushuiqs/idhash-benchmark/connection"
 )
 
 func main() {
-	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":7777", grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %s", err)
-	}
-	defer conn.Close()
 
-	req := &cache.Request{
-		MUID: "05CADF6776056BC81AD2D2EC72056851",
+	s := "CgObKRQxNTQ3MzQzMTc4MDU1NzM4MjU5MAAA"
+	numOfError := 0
+
+	for x := 0; x < 100; x++ {
+		go func() {
+			// defer timeTrack(time.Now(), "factorial")
+			response, err := connection.Conn(s)
+			if err != nil {
+				log.Fatalf("Error : %s", err)
+				numOfError++
+			}
+			fmt.Println(response.String())
+		}()
 	}
 
-	c := cache.NewCacheServiceClient(conn)
-	response, err := c.ProcessRequest(context.Background(), req)
-	if err != nil {
-		log.Fatalf("Error when calling SayHello: %s", err)
-	}
-	log.Printf("Response from server: %s", response.Greeting)
+}
+
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Printf("%s took %s", name, elapsed)
 }

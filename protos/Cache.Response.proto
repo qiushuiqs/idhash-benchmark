@@ -4,6 +4,6 @@ package cache;
 
 message Response
 {
-    string LinkedinID = 1;
+    bytes LinkedinID = 1;
     string BingBidder = 2;
 }
