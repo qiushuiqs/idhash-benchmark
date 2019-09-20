@@ -5,10 +5,11 @@ package cache
 
 import (
 	fmt "fmt"
-	proto "github.com/gogo/protobuf/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
+
+	proto "github.com/gogo/protobuf/proto"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -23,7 +24,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Request struct {
-	MUID string `protobuf:"bytes,1,opt,name=MUID,proto3" json:"MUID,omitempty"`
+	Key []byte `protobuf:"bytes,1,opt,name=Key,proto3" json:"Key,omitempty"`
 }
 
 func (m *Request) Reset()         { *m = Request{} }
@@ -59,11 +60,11 @@ func (m *Request) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Request proto.InternalMessageInfo
 
-func (m *Request) GetMUID() string {
+func (m *Request) GetKey() []byte {
 	if m != nil {
-		return m.MUID
+		return m.Key
 	}
-	return ""
+	return nil
 }
 
 func init() {
@@ -73,14 +74,14 @@ func init() {
 func init() { proto.RegisterFile("Cache.Request.proto", fileDescriptor_96d38b0671ec3fe5) }
 
 var fileDescriptor_96d38b0671ec3fe5 = []byte{
-	// 105 bytes of a gzipped FileDescriptorProto
+	// 104 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x76, 0x4e, 0x4c, 0xce,
 	0x48, 0xd5, 0x0b, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17,
-	0x62, 0x4d, 0x06, 0x09, 0x2a, 0xc9, 0x72, 0xb1, 0x43, 0xc5, 0x85, 0x84, 0xb8, 0x58, 0x7c, 0x43,
-	0x3d, 0x5d, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x27, 0x89, 0x13, 0x8f, 0xe4,
-	0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f,
-	0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x48, 0x62, 0x03, 0x1b, 0x63, 0x0c, 0x08, 0x00, 0x00, 0xff,
-	0xff, 0x9e, 0x8a, 0x4e, 0xca, 0x5d, 0x00, 0x00, 0x00,
+	0x62, 0x4d, 0x06, 0x09, 0x2a, 0x49, 0x73, 0xb1, 0x43, 0xc5, 0x85, 0x04, 0xb8, 0x98, 0xbd, 0x53,
+	0x2b, 0x25, 0x18, 0x15, 0x18, 0x35, 0x78, 0x82, 0x40, 0x4c, 0x27, 0x89, 0x13, 0x8f, 0xe4, 0x18,
+	0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0, 0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5,
+	0x18, 0x6e, 0x3c, 0x96, 0x63, 0x48, 0x62, 0x03, 0x1b, 0x62, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff,
+	0x07, 0x51, 0x93, 0x24, 0x5b, 0x00, 0x00, 0x00,
 }
 
 func (m *Request) Marshal() (dAtA []byte, err error) {
@@ -103,10 +104,10 @@ func (m *Request) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.MUID) > 0 {
-		i -= len(m.MUID)
-		copy(dAtA[i:], m.MUID)
-		i = encodeVarintCache_Request(dAtA, i, uint64(len(m.MUID)))
+	if len(m.Key) > 0 {
+		i -= len(m.Key)
+		copy(dAtA[i:], m.Key)
+		i = encodeVarintCache_Request(dAtA, i, uint64(len(m.Key)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -130,7 +131,7 @@ func (m *Request) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.MUID)
+	l = len(m.Key)
 	if l > 0 {
 		n += 1 + l + sovCache_Request(uint64(l))
 	}
@@ -174,9 +175,9 @@ func (m *Request) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MUID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Key", wireType)
 			}
-			var stringLen uint64
+			var byteLen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowCache_Request
@@ -186,23 +187,25 @@ func (m *Request) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				byteLen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if byteLen < 0 {
 				return ErrInvalidLengthCache_Request
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + byteLen
 			if postIndex < 0 {
 				return ErrInvalidLengthCache_Request
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.MUID = string(dAtA[iNdEx:postIndex])
+			m.Key = append(m.Key[:0], dAtA[iNdEx:postIndex]...)
+			if m.Key == nil {
+				m.Key = []byte{}
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

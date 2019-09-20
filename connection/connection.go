@@ -15,7 +15,7 @@ type IdHashClient struct {
 
 func Conn() (*IdHashClient, error) {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial("40.91.88.191:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial("52.246.252.11:443", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %s", err)
 		return nil, err
@@ -34,14 +34,13 @@ func Conn() (*IdHashClient, error) {
 }
 
 func (client *IdHashClient) Exec(key string) (*cache.Response, error) {
-	// s := "CgObKRQxNTQ3MzQzMTc4MDU1NzM4MjU5MAAA"
+	// key := "CgObKRM3MjQzMDc0OTQwMDgwMDE0MjY3AAA="
 	sDec, _ := base64.StdEncoding.DecodeString(key)
 	req := &cache.Request{
-		MUID: string(sDec),
+		Key: sDec,
 	}
 	response, err := client.cacheServiceClient.ProcessRequest(context.Background(), req)
 	if err != nil {
-		log.Fatalf("Error when calling Exec: %s", err)
 		return nil, err
 	}
 	return response, nil

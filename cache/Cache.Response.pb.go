@@ -23,8 +23,10 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Response struct {
-	LinkedinID []byte `protobuf:"bytes,1,opt,name=LinkedinID,proto3" json:"LinkedinID,omitempty"`
-	BingBidder string `protobuf:"bytes,2,opt,name=BingBidder,proto3" json:"BingBidder,omitempty"`
+	Value                []byte `protobuf:"bytes,1,opt,name=Value,proto3" json:"Value,omitempty"`
+	ACSServerHandleTime  uint64 `protobuf:"varint,2,opt,name=ACSServerHandleTime,proto3" json:"ACSServerHandleTime,omitempty"`
+	ACSClientHandleTime  uint64 `protobuf:"varint,3,opt,name=ACSClientHandleTime,proto3" json:"ACSClientHandleTime,omitempty"`
+	GrpcServerHandleTime uint64 `protobuf:"varint,4,opt,name=GrpcServerHandleTime,proto3" json:"GrpcServerHandleTime,omitempty"`
 }
 
 func (m *Response) Reset()         { *m = Response{} }
@@ -60,18 +62,32 @@ func (m *Response) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Response proto.InternalMessageInfo
 
-func (m *Response) GetLinkedinID() []byte {
+func (m *Response) GetValue() []byte {
 	if m != nil {
-		return m.LinkedinID
+		return m.Value
 	}
 	return nil
 }
 
-func (m *Response) GetBingBidder() string {
+func (m *Response) GetACSServerHandleTime() uint64 {
 	if m != nil {
-		return m.BingBidder
+		return m.ACSServerHandleTime
 	}
-	return ""
+	return 0
+}
+
+func (m *Response) GetACSClientHandleTime() uint64 {
+	if m != nil {
+		return m.ACSClientHandleTime
+	}
+	return 0
+}
+
+func (m *Response) GetGrpcServerHandleTime() uint64 {
+	if m != nil {
+		return m.GrpcServerHandleTime
+	}
+	return 0
 }
 
 func init() {
@@ -81,16 +97,18 @@ func init() {
 func init() { proto.RegisterFile("Cache.Response.proto", fileDescriptor_fe2c8224a41c59ec) }
 
 var fileDescriptor_fe2c8224a41c59ec = []byte{
-	// 133 bytes of a gzipped FileDescriptorProto
+	// 171 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x71, 0x4e, 0x4c, 0xce,
 	0x48, 0xd5, 0x0b, 0x4a, 0x2d, 0x2e, 0xc8, 0xcf, 0x2b, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
-	0x17, 0x62, 0x4d, 0x06, 0x89, 0x2a, 0x79, 0x71, 0x71, 0xc0, 0x24, 0x84, 0xe4, 0xb8, 0xb8, 0x7c,
-	0x32, 0xf3, 0xb2, 0x53, 0x53, 0x32, 0xf3, 0x3c, 0x5d, 0x24, 0x18, 0x15, 0x18, 0x35, 0x78, 0x82,
-	0x90, 0x44, 0x40, 0xf2, 0x4e, 0x99, 0x79, 0xe9, 0x4e, 0x99, 0x29, 0x29, 0xa9, 0x45, 0x12, 0x4c,
-	0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x48, 0x22, 0x4e, 0x12, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24,
-	0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78,
-	0x2c, 0xc7, 0x90, 0xc4, 0x06, 0xb6, 0xd3, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xfc, 0x10, 0x3a,
-	0xc9, 0x8b, 0x00, 0x00, 0x00,
+	0x17, 0x62, 0x4d, 0x06, 0x89, 0x2a, 0xed, 0x60, 0xe4, 0xe2, 0x80, 0xc9, 0x08, 0x89, 0x70, 0xb1,
+	0x86, 0x25, 0xe6, 0x94, 0xa6, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0xf0, 0x04, 0x41, 0x38, 0x42, 0x06,
+	0x5c, 0xc2, 0x8e, 0xce, 0xc1, 0xc1, 0xa9, 0x45, 0x65, 0xa9, 0x45, 0x1e, 0x89, 0x79, 0x29, 0x39,
+	0xa9, 0x21, 0x99, 0xb9, 0xa9, 0x12, 0x4c, 0x0a, 0x8c, 0x1a, 0x2c, 0x41, 0xd8, 0xa4, 0xa0, 0x3a,
+	0x9c, 0x73, 0x32, 0x53, 0xf3, 0x4a, 0x90, 0x74, 0x30, 0xc3, 0x75, 0xa0, 0x4b, 0x09, 0x19, 0x71,
+	0x89, 0xb8, 0x17, 0x15, 0x24, 0x63, 0x58, 0xc2, 0x02, 0xd6, 0x82, 0x55, 0xce, 0x49, 0xe2, 0xc4,
+	0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e, 0xe1,
+	0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0x92, 0xd8, 0xc0, 0x5e, 0x34, 0x06, 0x04, 0x00,
+	0x00, 0xff, 0xff, 0xd3, 0x4b, 0x5b, 0x47, 0xfa, 0x00, 0x00, 0x00,
 }
 
 func (m *Response) Marshal() (dAtA []byte, err error) {
@@ -113,17 +131,25 @@ func (m *Response) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.BingBidder) > 0 {
-		i -= len(m.BingBidder)
-		copy(dAtA[i:], m.BingBidder)
-		i = encodeVarintCache_Response(dAtA, i, uint64(len(m.BingBidder)))
+	if m.GrpcServerHandleTime != 0 {
+		i = encodeVarintCache_Response(dAtA, i, uint64(m.GrpcServerHandleTime))
 		i--
-		dAtA[i] = 0x12
+		dAtA[i] = 0x20
 	}
-	if len(m.LinkedinID) > 0 {
-		i -= len(m.LinkedinID)
-		copy(dAtA[i:], m.LinkedinID)
-		i = encodeVarintCache_Response(dAtA, i, uint64(len(m.LinkedinID)))
+	if m.ACSClientHandleTime != 0 {
+		i = encodeVarintCache_Response(dAtA, i, uint64(m.ACSClientHandleTime))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.ACSServerHandleTime != 0 {
+		i = encodeVarintCache_Response(dAtA, i, uint64(m.ACSServerHandleTime))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Value) > 0 {
+		i -= len(m.Value)
+		copy(dAtA[i:], m.Value)
+		i = encodeVarintCache_Response(dAtA, i, uint64(len(m.Value)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -147,13 +173,18 @@ func (m *Response) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.LinkedinID)
+	l = len(m.Value)
 	if l > 0 {
 		n += 1 + l + sovCache_Response(uint64(l))
 	}
-	l = len(m.BingBidder)
-	if l > 0 {
-		n += 1 + l + sovCache_Response(uint64(l))
+	if m.ACSServerHandleTime != 0 {
+		n += 1 + sovCache_Response(uint64(m.ACSServerHandleTime))
+	}
+	if m.ACSClientHandleTime != 0 {
+		n += 1 + sovCache_Response(uint64(m.ACSClientHandleTime))
+	}
+	if m.GrpcServerHandleTime != 0 {
+		n += 1 + sovCache_Response(uint64(m.GrpcServerHandleTime))
 	}
 	return n
 }
@@ -195,7 +226,7 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field LinkedinID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
 			}
 			var byteLen int
 			for shift := uint(0); ; shift += 7 {
@@ -222,16 +253,16 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.LinkedinID = append(m.LinkedinID[:0], dAtA[iNdEx:postIndex]...)
-			if m.LinkedinID == nil {
-				m.LinkedinID = []byte{}
+			m.Value = append(m.Value[:0], dAtA[iNdEx:postIndex]...)
+			if m.Value == nil {
+				m.Value = []byte{}
 			}
 			iNdEx = postIndex
 		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field BingBidder", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ACSServerHandleTime", wireType)
 			}
-			var stringLen uint64
+			m.ACSServerHandleTime = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowCache_Response
@@ -241,24 +272,49 @@ func (m *Response) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.ACSServerHandleTime |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthCache_Response
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ACSClientHandleTime", wireType)
 			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthCache_Response
+			m.ACSClientHandleTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCache_Response
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ACSClientHandleTime |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
 			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GrpcServerHandleTime", wireType)
 			}
-			m.BingBidder = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
+			m.GrpcServerHandleTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCache_Response
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.GrpcServerHandleTime |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipCache_Response(dAtA[iNdEx:])

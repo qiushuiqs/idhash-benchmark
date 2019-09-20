@@ -4,6 +4,8 @@ package cache;
 
 message Response
 {
-    bytes LinkedinID = 1;
-    string BingBidder = 2;
+    bytes Value = 1;
+    uint64 ACSServerHandleTime = 2;
+    uint64 ACSClientHandleTime = 3;
+    uint64 GrpcServerHandleTime = 4;
 }

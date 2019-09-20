@@ -4,5 +4,5 @@ package cache;
 
 message Request
 {
-    string MUID = 1;
+    bytes Key = 1;
 }
